@@ -20,7 +20,7 @@ The files in the root directory are for `.gitlab-ci.yml` templates that are
 project specific, such as language or framework specific templates.
 The Pages folder holds `gitlab-ci.yml` templates to be used with [GitLab Pages][gl-pages].
 
-[gl-pages][http://docs.gitlab.com/ee/pages/README.html]
+[gl-pages]: http://docs.gitlab.com/ee/pages/README.html
 
 ## Contributing guidelines
 
