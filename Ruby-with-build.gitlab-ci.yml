@@ -8,14 +8,14 @@ cache:
   paths:
     - vendor/ruby
 
-# This is a basic example for a gem or script which doesn't use
-# services such as redis or postgres
+before_script:
+  - gem install bundler --no-ri --no-rdoc # Bundler is not installed with the image
+
 build:
   stage: build
   script:
-    - ruby -v                                              # Print out ruby version for debugging
-    - gem install bundler --no-ri --no-rdoc --path vendor  # Bundler is not installed with the image
-    - bundle install -j $(nproc) --path vendor             # Install dependencies into ./vendor/ruby
+    - ruby -v                                  # Print out ruby version for debugging
+    - bundle install -j $(nproc) --path vendor # Install dependencies into ./vendor/ruby
   artifacts:
     untracked: true
     expires_in: 1 week
