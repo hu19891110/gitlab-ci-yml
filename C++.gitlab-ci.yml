@@ -1,0 +1,15 @@
+---
+
+image: gcc
+
+build:
+  stage: build
+  script: g++ helloworld.cpp -o mybinary
+  artifacts:
+    paths:
+      - mybinary
+
+test:
+  stage: test
+  script:
+    - ./runmytests.sh
