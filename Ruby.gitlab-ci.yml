@@ -32,6 +32,9 @@ rspec:
   - rspec spec
 
 rails:
+  # Uncomment next lines if your rails app needs a js engine:
+  # before_script: 
+  # - apt-get update -q && apt-get install nodejs -yqq
   script:
   - bundle exec rake db:migrate
   - bundle exec rake test
