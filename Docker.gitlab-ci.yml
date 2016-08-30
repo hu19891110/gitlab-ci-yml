@@ -8,5 +8,5 @@ build:
   stage: build
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_BUILD_NAME" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_BUILD_NAME"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME"
