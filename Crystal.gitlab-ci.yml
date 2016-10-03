@@ -1,7 +1,7 @@
 # This file is a template, and might need editing before it works on your project.
 # Official language image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/ruby/tags/
-image: "crystallang/crystal:latest" # latest can be replaced with any version, i.e. 0.19.3
+# https://hub.docker.com/r/crystallang/crystal/
+image: "crystallang/crystal:latest"
 
 # Pick zero or more services to be used on all builds.
 # Only needed when using a docker container to run your tests in.
