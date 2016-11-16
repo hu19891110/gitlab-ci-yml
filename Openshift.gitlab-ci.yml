@@ -33,7 +33,6 @@ test2:
     - echo run tests
 
 .deploy: &deploy
-  image: ayufan/openshift-cli
   before_script:
     - oc login "$OPENSHIFT_SERVER" --token="$OPENSHIFT_TOKEN" --insecure-skip-tls-verify
     - oc project "$CI_PROJECT_NAME" 2> /dev/null || oc new-project "$CI_PROJECT_NAME"
