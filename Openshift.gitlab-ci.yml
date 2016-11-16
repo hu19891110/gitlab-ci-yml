@@ -67,7 +67,7 @@ close review:
     GIT_STRATEGY: none
   environment:
     name: review/$CI_BUILD_REF_NAME
-    action: close
+    action: stop
   only:
     - branches
   except:
