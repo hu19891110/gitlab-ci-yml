@@ -45,24 +45,24 @@ review:
   <<: *deploy
   stage: review
   variables:
-    APP: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
+    APP: $CI_BUILD_REF_NAME
   environment:
     name: review/$CI_BUILD_REF_NAME
-    url: http://$APP.$OPENSHIFT_DOMAIN
-    on_stop: "close review"
+    url: http://$CI_PROJECT_NAME-$CI_BUILD_REF_NAME.$OPENSHIFT_DOMAIN
+    on_stop: stop-review
   only:
     - branches
   except:
     - master
 
-close review:
+stop-review:
   <<: *deploy
   stage: review
   script:
     - oc delete all -l "app=$APP"
   when: manual
   variables:
-    APP: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
+    APP: $CI_BUILD_REF_NAME
     GIT_STRATEGY: none
   environment:
     name: review/$CI_BUILD_REF_NAME
@@ -76,10 +76,10 @@ staging:
   <<: *deploy
   stage: staging
   variables:
-    APP: $CI_PROJECT_NAME-staging
+    APP: staging
   environment:
     name: staging
-    url: http://$APP.$OPENSHIFT_DOMAIN
+    url: http://$CI_PROJECT_NAME-staging.$OPENSHIFT_DOMAIN
   only:
     - master
 
@@ -87,10 +87,10 @@ production:
   <<: *deploy
   stage: production
   variables:
-    APP: $CI_PROJECT_NAME
+    APP: production
   when: manual
   environment:
     name: production
-    url: http://$APP.$OPENSHIFT_DOMAIN
+    url: http://$CI_PROJECT_NAME.$OPENSHIFT_DOMAIN
   only:
     - master
