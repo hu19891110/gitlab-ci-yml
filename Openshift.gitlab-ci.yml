@@ -2,7 +2,6 @@
 image: ayufan/openshift-cli
 
 stages:
-  - build
   - test
   - review
   - staging
@@ -13,12 +12,6 @@ variables:
   # OPENSHIFT_DOMAIN: apps.example.com
   # Configure this variable in Secure Variables:
   # OPENSHIFT_TOKEN: my.openshift.token
-
-build:
-  stage: build
-  before_script: []
-  script:
-    - echo build
 
 test1:
   stage: test
