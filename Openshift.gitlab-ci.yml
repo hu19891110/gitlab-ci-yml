@@ -2,7 +2,6 @@
 image: ayufan/openshift-cli
 
 stages:
-  - build
   - test
   - review
   - staging
@@ -13,12 +12,6 @@ variables:
   # OPENSHIFT_DOMAIN: apps.example.com
   # Configure this variable in Secure Variables:
   # OPENSHIFT_TOKEN: my.openshift.token
-
-build:
-  stage: build
-  before_script: []
-  script:
-    - echo build
 
 test1:
   stage: test
@@ -39,13 +32,14 @@ test2:
   script:
     - "oc get services $APP 2> /dev/null || oc new-app . --name=$APP --strategy=docker"
     - "oc start-build $APP --from-dir=. --follow || sleep 3s || oc start-build $APP --from-dir=. --follow"
-    - "oc get routes $APP 2> /dev/null || oc expose service $APP --hostname=$APP.$OPENSHIFT_DOMAIN"
+    - "oc get routes $APP 2> /dev/null || oc expose service $APP --hostname=$APP_HOST"
 
 review:
   <<: *deploy
   stage: review
   variables:
     APP: $CI_BUILD_REF_NAME
+    APP_HOST: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME.$OPENSHIFT_DOMAIN
   environment:
     name: review/$CI_BUILD_REF_NAME
     url: http://$CI_PROJECT_NAME-$CI_BUILD_REF_NAME.$OPENSHIFT_DOMAIN
@@ -77,6 +71,7 @@ staging:
   stage: staging
   variables:
     APP: staging
+    APP_HOST: $CI_PROJECT_NAME-staging.$OPENSHIFT_DOMAIN
   environment:
     name: staging
     url: http://$CI_PROJECT_NAME-staging.$OPENSHIFT_DOMAIN
@@ -88,6 +83,7 @@ production:
   stage: production
   variables:
     APP: production
+    APP_HOST: $CI_PROJECT_NAME.$OPENSHIFT_DOMAIN
   when: manual
   environment:
     name: production
